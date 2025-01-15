@@ -1,0 +1,14 @@
+﻿D:\Examples\WebUser\WebUser.Api\Controllers\UsersController.cs
+D:\Examples\WebUser\WebUser.Api\Models\User.cs
+D:\Examples\WebUser\WebUser.Api\Program.cs
+D:\Examples\WebUser\WebUser.Api\Repositories\IUserRepository.cs
+D:\Examples\WebUser\WebUser.Api\Repositories\UserRepository.cs
+D:\Examples\WebUser\WebUser.Api\Services\IUserService.cs
+D:\Examples\WebUser\WebUser.Api\Services\UserService.cs
+D:\Examples\WebUser\WebUser.Api\obj\Debug\net6.0\WebUser.Api.GlobalUsings.g.cs
+D:\Examples\WebUser\WebUser.Api\obj\Debug\net6.0\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs
+D:\Examples\WebUser\WebUser.Api\obj\Debug\net6.0\WebUser.Api.AssemblyInfo.cs
+D:\Examples\WebUser\WebUser.Api\obj\Debug\net6.0\WebUser.Api.MvcApplicationPartsAssemblyInfo.cs
+D:\Examples\WebUser\WebUser.Api\appsettings.Development.json
+D:\Examples\WebUser\WebUser.Api\appsettings.json
+D:\Examples\WebUser\WebUser.Api\Properties\launchSettings.json
