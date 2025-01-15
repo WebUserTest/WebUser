@@ -76,7 +76,6 @@ namespace UserAPI.xUnitTests
         public void DeleteUser_DeletesUserCorrectly()
         {
             // Arrange
-
             var userId = 1;
             // Act
             _userRepository.DeleteUser(userId);
