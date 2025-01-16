@@ -1,34 +1,31 @@
 name: Build
-
 on:
   push:
     branches:
-      - master
-
-
+      - main # the name of your main branch
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
   build:
-    name: Build and analyze
+    name: Build
     runs-on: windows-latest
-    
     steps:
-      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.17
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: 'zulu' # Alternative distribution options are available.
       - name: Cache SonarQube packages
-        uses: actions/cache@v4
+        uses: actions/cache@v1
         with:
           path: ~\.sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
       - name: Cache SonarQube scanner
         id: cache-sonar-scanner
-        uses: actions/cache@v4
+        uses: actions/cache@v1
         with:
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
@@ -42,6 +39,6 @@ jobs:
       - name: Build and analyze
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"WebUserTest_WebUser_235b0fdf-104c-481e-af11-f00de84b1d38" /d:sonar.token="sqp_4e148b2bcabdb6425dd995f34aab7ff8b0251004" /d:sonar.host.url="http://localhost:9000"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"example" /d:sonar.token="${{ sqp_4e148b2bcabdb6425dd995f34aab7ff8b0251004 }}" /d:sonar.host.url="${{ http://localhost:9000 }}"
           dotnet build
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="sqp_4e148b2bcabdb6425dd995f34aab7ff8b0251004"
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ sqp_4e148b2bcabdb6425dd995f34aab7ff8b0251004 }}"
