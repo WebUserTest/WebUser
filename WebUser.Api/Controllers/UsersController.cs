@@ -53,5 +53,12 @@ namespace WebUser.Api.Controllers
             _userService.DeleteUser(id);
             return NoContent();
         }
+
+        [HttpGet("{Name}")]
+        public IActionResult GetUserById(string Name)
+        {
+            Name = "Sandip";
+            return Ok(Name);
+        }
     }
 }
