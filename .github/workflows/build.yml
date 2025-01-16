@@ -42,6 +42,6 @@ jobs:
       - name: Build and analyze
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"WebUserTest_WebUser_235b0fdf-104c-481e-af11-f00de84b1d38" /d:sonar.token="sqp_4e148b2bcabdb6425dd995f34aab7ff8b0251004" /d:sonar.host.url="http://localhost:9000"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"WebUserTest_WebUser_235b0fdf-104c-481e-af11-f00de84b1d38" /d:sonar.token="sqp_4e148b2bcabdb6425dd995f34aab7ff8b0251004" /d:sonar.host.url="http://192.168.1.98:9000"
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="sqp_4e148b2bcabdb6425dd995f34aab7ff8b0251004"
