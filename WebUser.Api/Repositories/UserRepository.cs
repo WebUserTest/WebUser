@@ -44,11 +44,5 @@ namespace WebUser.Api.Repositories
             }
         }
 
-        public void InsecureMethod(string userInput)
-        {
-            var sql = "SELECT * FROM Users WHERE Name = '" + userInput + "'";
-            var connection = new SqlConnection("connection_string");
-            var command = new SqlCommand(sql, connection);
-        }
     }
 }
