@@ -1,44 +1,56 @@
 name: Build
+
 on:
   push:
     branches:
-      - main # the name of your main branch
-  pull_request:
-    types: [opened, synchronize, reopened]
+      - master
+
 jobs:
   build:
-    name: Build
+    name: Build and analyze
     runs-on: windows-latest
+    
     steps:
-      - name: Set up JDK 17
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.17
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu' # Alternative distribution options are available.
+
       - name: Cache SonarQube packages
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ~\.sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
       - name: Cache SonarQube scanner
         id: cache-sonar-scanner
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
+
       - name: Install SonarQube scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+
       - name: Build and analyze
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"example" /d:sonar.token="${{ sqp_dacf7ff06e29fd3846e634226ae0ec4936cfca9d }}" /d:sonar.host.url="${{ http://localhost:9000 }}" /d:sonar.projectBaseDir="D:\Examples\WebUser" -X
+          # Specify the correct base directory for your SonarQube configuration
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"WebUserTest_WebUser_235b0fdf-104c-481e-af11-f00de84b1d38" /d:sonar.token="sqp_4e148b2bcabdb6425dd995f34aab7ff8b0251004" /d:sonar.host.url="http://localhost:9000" /d:sonar.projectBaseDir="${{ github.workspace }}"
+          
+          # Perform the build
           dotnet build
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ sqp_dacf7ff06e29fd3846e634226ae0ec4936cfca9d }}"
+
+          # Complete the analysis
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="sqp_4e148b2bcabdb6425dd995f34aab7ff8b0251004"
