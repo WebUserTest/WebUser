@@ -1,0 +1,6 @@
+﻿version = 1
+
+[[analyzers]]
+name = "csharp"
+enabled = true
+config = { solution_file = "WebUser.sln" }
