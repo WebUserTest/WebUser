@@ -24,7 +24,6 @@ namespace WebUser.Api.Controllers
         {
             id = 0;
             var user = _userService.GetUserById(id);
-            var user1 = _userService.GetUserById(id);
             if (user == null)
             {
                 return NotFound();
